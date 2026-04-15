@@ -47,9 +47,9 @@ int jumlahTempatTerisi = 0; // Menghitung jumlah tempat yang terisi
 // Fungsi untuk menampilkan daftar menu makanan
 void tampilkanMenuMakanan() {
     cout << endl;
-    cout << "========================================" << endl;
-    cout << setw(5) << left << "No" << setw(30) << "Daftar Menu Makanan" << setw(10) << "Harga" << endl;
-    cout << string(40, '-') << endl;
+    cout << "=============================================" << endl;
+    cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MAKANAN" << setw(10) << "HARGA" << endl;
+    cout << string(45, '-') << endl;
 
     for (int i = 0; i < 10; i++) { // 10 makanan
         cout << setw(5) << left << (i + 1) << setw(30) << left << daftarMenu[i].namaMakanan 
@@ -59,9 +59,9 @@ void tampilkanMenuMakanan() {
 
 // Fungsi untuk menampilkan daftar menu minuman
 void tampilkanMenuMinuman() {
-    cout << "========================================" << endl;
-    cout << setw(5) << left << "No" << setw(30) << "Daftar Menu Minuman" << setw(10) << "Harga" << endl;
-    cout << string(40, '-') << endl;
+    cout << "=============================================" << endl;
+    cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MINUMAN" << setw(10) << "HARGA" << endl;
+    cout << string(45, '-') << endl;
 
     for (int i = 10; i < MAX_MENU_ITEMS; i++) { // 14 minuman
         cout << setw(5) << left << (i + 1) << setw(30) << left << daftarMenu[i].namaMakanan 
@@ -81,9 +81,9 @@ void inputMakananYangDibeli(vector<int>& pilihanMenu, vector<int>& jumlahBeli) {
     int nomorMenu, jumlahPesan;
     char lanjut;
     do {
-        cout << "Masukkan menu yang dipilih (nomor menu)    : ";
+        cout << "Masukkan menu yang dipilih    (nomor menu) : ";
         cin >> nomorMenu;
-        cout << "Masukkan jumlah yang ingin dibeli (angka)  : ";
+        cout << "Masukkan jumlah yang ingin dibeli  (angka) : ";
         cin >> jumlahPesan;
         
         pilihanMenu.push_back(nomorMenu);
@@ -122,7 +122,7 @@ double terapkanDiskon(int totalHarga, const vector<int>& jumlahBeli) {
         totalPorsi += jumlahBeli[i];
     }
     if (totalPorsi > 5) {
-        totalHarga -= 2000; // Diskon Rp2000
+        totalHarga -= 2000; // Diskon Rp 2000
     }
     return totalHarga;  // Tidak ada diskon lainnya
 }
@@ -193,44 +193,32 @@ int cariHargaTertinggi(const Makanan daftarMenu[], int n) {
 
 int main() {
     // Menampilkan judul
+	cout << " +===================================================================================================+" << endl;
+	cout << " |                                                                                                   |" << endl;
+	cout << " |      _____      _                       _     _____        _                          _ _         |" << endl;
+	cout << " |     / ____|    | |                     | |   |  __ \\      | |                        | (_)        |" << endl;
+	cout << " |    | (___   ___| | __ _ _ __ ___   __ _| |_  | |  | | __ _| |_ __ _ _ __   __ _    __| |_         |" << endl;
+	cout << " |     \\___ \\ / _ \\ |/ _` | '_ ` _ \\ / _` | __| | |  | |/ _` | __/ _` | '_ \\ / _` |  / _` | |        |" << endl;
+	cout << " |     ____) |  __/ | (_| | | | | | | (_| | |_  | |__| | (_| | || (_| | | | | (_| | | (_| | |        |" << endl;
+	cout << " |    |_____/ \\___|_|\\__,_|_| |_| |_|\\__,_|\\__| |_____/ \\__,_|\\__\\__,_|_| |_|\\__, |  \\__,_|_|        |" << endl;
+	cout << " |                                                                            __/ |                  |" << endl;
+	cout << " |                                                                           |___/                   |" << endl;
+	cout << " |                                                                                                   |" << endl;
+	cout << " | __          __                                __  __       _                  _____ _____ _____   |" << endl;
+	cout << " | \\ \\        / /                               |  \\/  |     | |                / ____/ ____/ ____|  |" << endl;
+	cout << " |  \\ \\  /\\  / /_ _ _ __ ___   ___ _ __   __ _  | \\  / | __ _| | ____ _ _ __   | (___| (___| (___    |" << endl;
+	cout << " |   \\ \\/  \\/ / _` | '__/ _ \\ / _ \\ '_ \\ / _` | | |\\/| |/ _` | |/ / _` | '_ \\   \\___ \\\\___ \\\\___ \\   |" << endl;
+	cout << " |    \\  /\\  / (_| | | | (_) |  __/ | | | (_| | | |  | | (_| |   < (_| | | | |  ____) |___) |___) |  |" << endl;
+	cout << " |     \\/  \\/ \\__,_|_|  \\___/ \\___|_| |_|\\__, | |_|  |_|\\__,_|_|\\_\\__,_|_| |_| |_____/_____/_____/   |" << endl;
+	cout << " |                                        __/ |                                                      |" << endl;
+	cout << " |                                       |___/                                                       |" << endl;
+	cout << " |                                                                                                   |" << endl;
+	cout << " +===================================================================================================+" << endl;
 
-    cout << "+===============================================================================+" << endl;
-    cout << "|\t _       __                                     _______________\t\t|" << endl;
-    cout << "|\t| |     / /___ __________  ___  ____  ____ _   / ___/ ___/ ___/\t\t|" << endl;
-    cout << "|\t| | /| / / __ `/ ___/ __ \\/ _ \\/ __ \\/ __ `/   \\__ \\\\__ \\\\__ \\\t\t|" << endl;
-    cout << "|\t| |/ |/ / /_/ / /  / /_/ /  __/ / / / /_/ /   ___/ /__/ /__/ /\t\t|" << endl;
-    cout << "|\t|__/|__/\\__,_/_/   \\____/\\___/_/ /_/\\__, /   /____/____/____/  \t\t|" << endl;
-    cout << "|\t                                   /____/                     \t\t|" << endl;
-    cout << "+===============================================================================+" << endl;
-    cout << endl;
-
-cout << "+===============================================================================+" << endl;
-    cout << " _        _                                 _  _       _                 __ __ __" << endl;  
-    cout << " \ \      / /_ _ _ _ __   _ _ _   _ _  |  \/  | _ _| | __ _ _ _   / _/ _/ _| " << endl;
-    cout << "  \ \ /\ / / ` | '/ _ \ / _ \ ' \ / ` | | |\/| |/ _` | |/ / _` | ' \  \_ \_ \_ \ " << endl;
-    cout << "   \ V  V / (| | | | () |  _/ | | | (| | | |  | | (| |   < (| | | | |  _) |_) |_) |" << endl;
-    cout << "    \/\/ \_,||  \_/ \_|| ||\, | ||  ||\,||\\_,|| || |_/_/__/ " << endl;
-    cout << "                                      |_/                                                  " << endl;
-    cout << "+===============================================================================+" << endl;
-    
-    cout << "+==============================================================================================+" << endl;
-	cout << "   _____      __                      __     ____        __                           ___ " << endl;
-	cout << "  / ___/___  / /___ _____ ___  ____ _/ /_   / __ ___ _/ /_____ _____  ____ _   ____/ (_)" << endl;
-	cout << "  \__ \/ _ \/ / __ `/ __ `__ \/ __ `/ __/  / / / / __ `/ __/ __ `/ __ \/ __ `/  / __  / / " << endl;
-	cout << " ___/ /  __/ / /_/ / / / / / / /_/ / /_   / /_/ / /_/ / /_/ /_/ / / / / /_/ /  / /_/ / /  " << endl;
-	cout << "/____/\___/_/\__,_/_/ /_/ /_/\__,_/\__/  /_____/\__,_/\__/\__,_/_/ /_/\__, /   \__,_/_/   " << endl;
-	cout << "                                                                     /____/               " << endl;
-	cout << "                                                                                                " << endl;
-	cout << " _       __                                     __  ___      __                  _______________" << endl;
-	cout << "| |     / /___ __________  ___  ____  ____ _   /  |/  /___ _/ /______ _____     / ___/ ___/ ___/" << endl;
-	cout << "| | /| / / __ `/ ___/ __ \/ _ \/ __ \/ __ `/  / /|_/ / __ `/ //_/ __ `/ __ \    \__ \\__ \\__ \ " << endl;
-	cout << "| |/ |/ / /_/ / /  / /_/ /  __/ / / / /_/ /  / /  / / /_/ / ,< / /_/ / / / /   ___/ /__/ /__/ / " << endl;
-	cout << "|__/|__/\__,_/_/   \____/\___/_/ /_/\__, /  /_/  /_/\__,_/_/|_|\__,_/_/ /_/   /____/____/____/  " << endl;
-	cout << "                                   /____/                                                       " << endl;
-    cout << "+==============================================================================================+" << endl;
-    
     char pilihan;
     
+    cout << endl;
+    cout << endl;
     cout << "Apakah Anda ingin makan di sini? (y/n) : ";
     cin >> pilihan;
     
