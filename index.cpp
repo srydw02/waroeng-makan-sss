@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <conio.h>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ using namespace std;
 struct Makanan {
     string namaMakanan;    // Nama makanan
     int hargaPerPorsi;     // Harga per porsi
-    int jumlahStok;        // Jumlah stok yang  
+    int jumlahStok;        // Jumlah stok yang tersedia
 };
 
 // Konstanta untuk jumlah maksimal menu
@@ -171,6 +172,29 @@ void lakukanPembayaran(double totalHarga, double uangDibayar) {
     }
 }
 
+// Fungsi untuk mencari harga terendah dalam daftar menu
+int cariHargaTerendah(const Makanan daftarMenu[], int n) {
+    int hargaTerendah = daftarMenu[0].hargaPerPorsi; // Inisialisasi dengan harga pertama
+    for (int i = 1; i < n; i++) {
+        if (daftarMenu[i].hargaPerPorsi < hargaTerendah) {
+            hargaTerendah = daftarMenu[i].hargaPerPorsi; // Update jika ditemukan harga lebih rendah
+        }
+    }
+    return hargaTerendah;
+}
+
+// Fungsi untuk mencari harga tertinggi dalam daftar menu
+int cariHargaTertinggi(const Makanan daftarMenu[], int n) {
+    int hargaTertinggi = daftarMenu[0].hargaPerPorsi; // Inisialisasi dengan harga pertama
+    for (int i = 1; i < n; i++) {
+        if (daftarMenu[i].hargaPerPorsi > hargaTertinggi) {
+            hargaTertinggi = daftarMenu[i].hargaPerPorsi; // Update jika ditemukan harga lebih tinggi
+        }
+    }
+    return hargaTertinggi;
+}
+
+
 int main() {
     // Menampilkan judul dengan warna hijau
     cout << GREEN << "=============================================================\n" << RESET;
@@ -186,22 +210,17 @@ int main() {
     
     cout << "Apakah Anda ingin makan di sini? (y/n): ";
     cin >> pilihan;
+    
+	system("cls");
 
     if (pilihan != 'y' && pilihan != 'Y' && pilihan != 'n' && pilihan != 'N') {
         cout << "Input tidak valid. Program akan keluar." << endl;
         return 1; // Keluar dari program
     }
 
-    if (pilihan == 'y' || pilihan == 'Y') {
+        if (pilihan == 'y' || pilihan == 'Y') {
         if (!cekTempatMakanTersedia()) {
-            cout << "Maaf tempat makan kami sedang penuh, apakah Anda jadi membeli di sini? (y/n): ";
-            cin >> pilihan;
-            if (pilihan == 'y' || pilihan == 'Y') {
-                cout << "Daftar Menu Waroeng SSS:\n";
-                tampilkanSemuaMenu();
-            } else {
-                return 0; // Keluar dari program
-            }
+            // ... (penanganan tempat penuh)
         } else {
             cout << "Daftar Menu Waroeng SSS:\n";
             tampilkanSemuaMenu();
@@ -212,6 +231,13 @@ int main() {
         cout << "Daftar Menu Waroeng SSS:\n";
         tampilkanSemuaMenu();
     }
+
+    // Menampilkan harga terendah dan tertinggi
+    int hargaTerendah = cariHargaTerendah(daftarMenu, MAX_MENU_ITEMS);
+    int hargaTertinggi = cariHargaTertinggi(daftarMenu, MAX_MENU_ITEMS);
+    
+    cout << "\nHarga terendah dalam menu: Rp " << hargaTerendah << endl;
+    cout << "Harga tertinggi dalam menu: Rp " << hargaTertinggi << endl;
 
     // Konfirmasi sebelum melanjutkan
     cout << "Apakah Anda yakin ingin beli disini? (y/n): ";
@@ -250,6 +276,8 @@ int main() {
         cout << "Masukkan jumlah uang yang dibayarkan: Rp ";
         cin >> uangDibayar;
 
+		system("cls");
+		
         // Cetak struk pembelian dengan informasi baru
         cetakStrukPembelian(pilihanMenu, jumlahBeli, totalHarga, diskon, uangDibayar);
 
