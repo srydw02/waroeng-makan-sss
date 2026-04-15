@@ -51,8 +51,9 @@ int jumlahTempatTerisi = 0; // Menghitung jumlah tempat yang terisi
 
 // Fungsi untuk menampilkan daftar menu makanan
 void tampilkanMenuMakanan() {
-    cout << "=== Menu Makanan ===" << endl;
-    cout << setw(5) << left << "No" << setw(30) << "Menu Makanan" << setw(10) << "Harga" << endl;
+	cout << endl;
+    cout << "============ DAFTAR MENU MAKANAN ============" << endl;
+    cout << setw(5) << left << "No." << setw(30) << "Menu Makanan" << setw(10) << "Harga" << endl;
     cout << string(45, '-') << endl;
 
     for (int i = 0; i < 10; i++) { // 10 makanan
@@ -63,8 +64,8 @@ void tampilkanMenuMakanan() {
 
 // Fungsi untuk menampilkan daftar menu minuman
 void tampilkanMenuMinuman() {
-    cout << "=== Menu Minuman ===" << endl;
-    cout << setw(5) << left << "No" << setw(30) << "Menu Minuman" << setw(10) << "Harga" << endl;
+    cout << "============ DAFTAR MENU MINUMAN ============" << endl;
+    cout << setw(5) << left << "No." << setw(30) << "Menu Minuman" << setw(10) << "Harga" << endl;
     cout << string(45, '-') << endl;
 
     for (int i = 10; i < MAX_MENU_ITEMS; i++) { // 14 minuman
@@ -167,7 +168,7 @@ void lakukanPembayaran(double totalHarga, double uangDibayar) {
         double kembalian = uangDibayar - totalHarga;
         cout << "Pembayaran berhasil!" << endl;
 //        if (kembalian > 0) {
-//            cout << "Kembalian Anda: Rp " << fixed << setprecision(2) << kembalian << endl;
+//            cout << "Kembalian Anda: Rp " << kembalian << endl;
 //        }
     } else {
         cout << "Uang yang dibayarkan tidak cukup. Anda masih kekurangan: Rp " 
@@ -250,3 +251,4 @@ int main() {
     }
 
     return 0;
+}
