@@ -30,7 +30,7 @@ Makanan daftarMenu[MAX_MENU_ITEMS] = {
     {"Nasi Ayam", 11000, 10},
     {"Mie Rebus / Goreng", 5000, 10},
     {"Mie Rebus / Goreng + Telur", 8000, 5},
-    {"Gorengan 3x", 2000, 30},
+    {"Gorengan", 1000, 30},
     {"Air Es", 1000, 50},
     {"Air Mineral", 3000, 30},
     {"Teh Panas", 2000, 25},
@@ -133,19 +133,19 @@ double terapkanDiskon(int totalHarga, const vector<int>& jumlahBeli) {
 // Fungsi untuk mencetak struk pembelian
 void cetakStrukPembelian(const vector<int>& pilihanMenu, const vector<int>& jumlahBeli, double totalHarga, double diskon, double uangDibayar) {
     cout << "\n===========================\n";
-    cout << "\tKANTIN SSS";
+    cout << "\tWAROENG SSS";
 	cout << "\n===== Struk Pembelian =====\n";
     for (size_t i = 0; i < pilihanMenu.size(); i++) {
         cout << "Makanan: " << daftarMenu[pilihanMenu[i] - 1].namaMakanan << "\n";
         cout << "Jumlah: " << jumlahBeli[i] << "\n";
     }
     cout << "\n===========================\n";
-    cout << "Total Harga: Rp " << fixed << setprecision(2) << totalHarga << endl;
-    cout << "Diskon: Rp " << fixed << setprecision(2) << diskon << endl;
-    cout << "Tunai: Rp " << fixed << setprecision(2) << uangDibayar << endl;
+    cout << "Total Harga: Rp " << totalHarga << endl;
+    cout << "Diskon: Rp " << diskon << endl;
+    cout << "Tunai: Rp " << uangDibayar << endl;
 
     double kembalian = uangDibayar - (totalHarga - diskon);
-    cout << "Kembalian: Rp " << fixed << setprecision(2) << kembalian << endl;
+    cout << "Kembalian: Rp " << kembalian << endl;
     cout << "\n===========================\n";
 }
 
@@ -171,7 +171,7 @@ void lakukanPembayaran(double totalHarga, double uangDibayar) {
 //        }
     } else {
         cout << "Uang yang dibayarkan tidak cukup. Anda masih kekurangan: Rp " 
-             << fixed << setprecision(2) << (totalHarga - uangDibayar) << endl;
+             << (totalHarga - uangDibayar) << endl;
     }
 }
 
@@ -250,4 +250,3 @@ int main() {
     }
 
     return 0;
-}
