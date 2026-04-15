@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-
 #include <vector>
 using namespace std;
 
@@ -43,16 +42,13 @@ Makanan daftarMenu[MAX_MENU_ITEMS] = {
     {"Kopi Hitam", 3000, 20}
 };
 
-int jumlahTempatTerisi = 0; // Menghitung jumlah tempat yang terisi
-
 // Fungsi untuk menampilkan daftar menu makanan
 void tampilkanMenuMakanan() {
-    cout << endl;
     cout << "=============================================" << endl;
-    cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MAKANAN" << setw(10) << "HARGA" << endl;
+    cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MAKANAN" << "HARGA" << endl;
     cout << string(45, '-') << endl;
 
-    for (int i = 0; i < 10; i++) { // 10 makanan
+    for (int i = 0; i < 11; i++) { // 11 makanan
         cout << setw(5) << left << (i + 1) << setw(30) << left << daftarMenu[i].namaMakanan 
              << setw(10) << daftarMenu[i].hargaPerPorsi << endl;
     }
@@ -61,10 +57,10 @@ void tampilkanMenuMakanan() {
 // Fungsi untuk menampilkan daftar menu minuman
 void tampilkanMenuMinuman() {
     cout << "=============================================" << endl;
-    cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MINUMAN" << setw(10) << "HARGA" << endl;
+    cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MINUMAN" << "HARGA" << endl;
     cout << string(45, '-') << endl;
 
-    for (int i = 10; i < MAX_MENU_ITEMS; i++) { // 14 minuman
+    for (int i = 11; i < MAX_MENU_ITEMS; i++) { // 14 minuman
         cout << setw(5) << left << (i + 1) << setw(30) << left << daftarMenu[i].namaMakanan 
              << setw(10) << daftarMenu[i].hargaPerPorsi << endl;
     }
@@ -72,13 +68,13 @@ void tampilkanMenuMinuman() {
 
 // Fungsi untuk menampilkan semua menu
 void tampilkanSemuaMenu() {
+	cout << endl;
     tampilkanMenuMakanan();
     cout << endl; // Baris kosong
     tampilkanMenuMinuman();
 }
 
-// Fungsi untuk menginput makanan yang dibeli
-void inputMakananYangDibeli(vector<int>& pilihanMenu, vector<int>& jumlahBeli) {
+int inputMakananYangDibeli(vector<int>& pilihanMenu, vector<int>& jumlahBeli) {
     int nomorMenu, jumlahPesan;
     char lanjut;
     do {
@@ -89,16 +85,29 @@ void inputMakananYangDibeli(vector<int>& pilihanMenu, vector<int>& jumlahBeli) {
         
         pilihanMenu.push_back(nomorMenu);
         jumlahBeli.push_back(jumlahPesan);
-
         cout << endl;
-        cout << "Apakah Anda ingin membeli menu yang lain? (y/n) : ";
-        cin >> lanjut;
-    } while (lanjut == 'y' || lanjut == 'Y');
+        
+        do {
+            cout << "Apakah Anda ingin membeli menu yang lain? (y/n) : ";
+            cin >> lanjut;
+            
+            if (lanjut == 'y' || lanjut == 'Y') {
+                break;
+            } else if (lanjut == 'n' || lanjut == 'N') {
+                return 1; // Mengembalikan 1 untuk menandakan sukses
+            } else {
+                cout << "Input tidak valid! Coba lagi" << endl;
+                cout << endl;
+                continue;
+            }
+        } while (true);
+        
+    } while (true);
 }
 
 // Fungsi untuk memeriksa ketersediaan stok
 bool validasiKetersediaanStok(const vector<int>& pilihanMenu, const vector<int>& jumlahBeli) {
-    for (size_t i = 0; i < pilihanMenu.size(); i++) {
+    for (size_t i = 0; i < pilihanMenu.size(); i++) { // jumlah elemen (size_t)
         if (daftarMenu[pilihanMenu[i] - 1].jumlahStok < jumlahBeli[i]) {
             return false;  // Jika stok tidak mencukupi
         }
@@ -125,7 +134,9 @@ double terapkanDiskon(int totalHarga) {
         diskon = 5000; // Diskon Rp 5000 jika total harga lebih dari 30000
     } else if (totalHarga > 10000) {
         diskon = 2000; // Diskon Rp 2000 jika total harga lebih dari 10000
-    }
+    } else {
+    	diskon = 0;
+	}
 
     return diskon; // Mengembalikan nilai diskon
 }
@@ -137,27 +148,36 @@ double hitungPPN(int totalHarga) {
 }
 
 // Fungsi untuk mencetak struk pembelian
-void cetakStrukPembelian(const vector<int>& pilihanMenu, const vector<int>& jumlahBeli, double totalHarga, double diskon, double ppn, double uangDibayar) {
-    cout << "\n ===========================\n";
-    cout << "      WAROENG MAKAN SSS     " << endl;
-    cout << "  Jl. Singopuran, Kartasura ";
-    cout << "\n ---------------------------\n";
-    for (size_t i = 0; i < pilihanMenu.size(); i++) {
-        cout << " " << daftarMenu[pilihanMenu[i] - 1].namaMakanan << endl;
-        cout << " " << jumlahBeli[i] << " X " << daftarMenu[pilihanMenu[i] - 1].hargaPerPorsi << "\t   " << jumlahBeli[i]*daftarMenu[pilihanMenu[i] - 1].hargaPerPorsi << endl;
+int cetakStrukPembelian(const vector<int>& pilihanMenu, const vector<int>& jumlahBeli, double totalHarga, double diskon, double ppn, double uangDibayar, double totalBelanja) {
+	// Memeriksa apakah uang yang dibayarkan cukup
+    if (uangDibayar >= totalBelanja) {
+	    cout << "\n ===========================\n";
+	    cout << "      WAROENG MAKAN SSS     " << endl;
+	    cout << "  Jl. Singopuran, Kartasura ";
+	    cout << "\n ---------------------------\n";
+	    for (size_t i = 0; i < pilihanMenu.size(); i++) {
+	        cout << " " << daftarMenu[pilihanMenu[i] - 1].namaMakanan << endl;
+	        cout << " " << jumlahBeli[i] << " X " << daftarMenu[pilihanMenu[i] - 1].hargaPerPorsi << "\t   "
+				 << jumlahBeli[i]*daftarMenu[pilihanMenu[i] - 1].hargaPerPorsi << endl;
+	    }
+	    cout << "\n ---------------------------\n";
+	    cout << " Total Harga   : Rp" << totalHarga << endl;
+	    cout << " Total Diskon  : Rp" << diskon << endl;
+	    cout << " PPN 11%       : Rp" << ppn << endl; // Menampilkan total pajak
+	    cout << " ---------------------------\n";
+	    
+	    cout << " Total Belanja : Rp" << totalBelanja << endl; // Menampilkan total setelah diskon dan pajak
+	    cout << " Uang Tunai    : Rp" << uangDibayar << endl;
+	    
+		double kembalian = uangDibayar - totalBelanja;
+	    cout << " Kembalian     : Rp" << kembalian;
+	    cout << "\n ---------------------------\n";
+	    cout << " Pembayaran berhasil!" << endl;
+	    cout << " Terima kasih atas pembelian Anda" << endl;
+		}
+		else {
+	        cout << " Uang Anda tidak cukup!" << endl;
     }
-    cout << "\n ---------------------------\n";
-    cout << " Total Harga   : Rp" << totalHarga << endl;
-    cout << " Total Diskon  : Rp" << diskon << endl;
-    cout << " PPN 11%       : Rp" << ppn << endl; // Menampilkan total pajak
-    cout << " ---------------------------\n";
-    cout << " Total Belanja : Rp" << (totalHarga - diskon + ppn) << endl; // Menampilkan total setelah diskon dan pajak
-    cout << " Uang Tunai    : Rp" << uangDibayar << endl;
-}
-
-// Fungsi untuk memeriksa tempat makan yang kosong
-bool cekTempatMakanTersedia() {
-    return jumlahTempatTerisi < MAX_SEATS; // Cek apakah masih ada tempat kosong
 }
 
 // Fungsi untuk memilih meja
@@ -167,29 +187,13 @@ int pilihMeja() {
         cout << "Pilih nomor meja (1 - " << MAX_SEATS << ") : ";
         cin >> meja;
         if (meja < 1 || meja > MAX_SEATS) {
-            cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
-        } else if (meja <= jumlahTempatTerisi) {
-            cout << "Meja sudah terisi. Silakan pilih meja lain." << endl;
-            meja = -1; // Set meja tidak valid
-        }
+            cout << "Input tidak valid! Coba lagi" << endl;
+            cout << endl;
+        } else {
+			break;
+		}
     } while (meja < 1 || meja > MAX_SEATS);
     return meja;
-}
-
-// Fungsi untuk melakukan pembayaran
-void lakukanPembayaran(double totalHarga, double uangDibayar) {
-    // Memeriksa apakah uang yang dibayarkan cukup
-    if (uangDibayar >= totalHarga) {
-        double kembalian = uangDibayar - totalHarga;
-        cout << " Kembalian     : Rp" << kembalian;
-        cout << "\n ---------------------------\n";
-        cout << " Pembayaran berhasil!" << endl;
-        cout << " Terima kasih atas pembelian Anda" << endl;
-    } else {
-        cout << " Kembalian     : Rp" << (totalHarga - uangDibayar);
-        cout << "\n ---------------------------\n";
-        cout << " Uang Anda tidak cukup!" << endl;
-    }
 }
 
 // Fungsi untuk mencari harga terendah dalam daftar menu
@@ -244,22 +248,17 @@ int main() {
     cout << " Apakah Anda ingin makan di sini? (y/n) : ";
     cin >> pilihan;
     
-    system("cls");
+    system("cls");    
 
     if (pilihan != 'y' && pilihan != 'Y' && pilihan != 'n' && pilihan != 'N') {
-        cout << "Input tidak valid! Program akan keluar secara paksa" << endl;
-        return 1; // Keluar dari program
+        cout << "Input tidak valid! Program keluar secara paksa" << endl;
+        return 0; // Keluar dari program
     }
 
     if (pilihan == 'y' || pilihan == 'Y') {
-        if (!cekTempatMakanTersedia()) {
-            cout << "Tempat makan sudah penuh!" << endl;
-            return 0; // Keluar dari program
-        } else {
-            int mejaDipilih = pilihMeja(); // Memilih meja
-            tampilkanSemuaMenu();
-            jumlahTempatTerisi++; // Menandai bahwa satu tempat telah terisi
-        }
+        int mejaDipilih = pilihMeja(); // Memilih meja
+        system ("cls");
+        tampilkanSemuaMenu();
     } else {
         tampilkanSemuaMenu();
     }
@@ -282,10 +281,13 @@ int main() {
     }
 
     // Proses pemesanan
-    vector<int> pilihanMenu;
-    vector<int> jumlahBeli;
+    vector<int> pilihanMenu; // pilih menu (nomor)
+    vector<int> jumlahBeli; // atur jumlah menu
 
-    inputMakananYangDibeli(pilihanMenu, jumlahBeli); // Input makanan yang dibeli
+//    inputMakananYangDibeli(pilihanMenu, jumlahBeli); // Input makanan yang dibeli
+	if (inputMakananYangDibeli(pilihanMenu, jumlahBeli) == 1) {
+	    // Lanjutkan dengan proses validasi stok dan pembayaran
+	}
 
     if (validasiKetersediaanStok(pilihanMenu, jumlahBeli)) {
         for (size_t i = 0; i < pilihanMenu.size(); i++) {
@@ -295,14 +297,16 @@ int main() {
         int totalHarga = hitungTotalHargaMakanan(pilihanMenu, jumlahBeli);
         double diskon = terapkanDiskon(totalHarga);  // Terapkan diskon
         double ppn = hitungPPN(totalHarga - diskon); // Hitung pajak PPN
+        double totalBelanja = totalHarga - diskon + ppn;
         
         // Tampilkan total harga dan diskon sebelum pembayaran
         cout << endl;
         cout << "Total Harga            : Rp" << totalHarga << endl;
         cout << "Total Diskon           : Rp" << diskon << endl;
-        cout << "Total Belanja          : Rp" << (totalHarga - diskon + ppn) << endl;
-        cout << "Harga di atas sudah termasuk PPN sebesar 11%" << endl; // Menambahkan teks
+        cout << "PPN 11%                : Rp" << ppn << endl;
+        cout << "Total Belanja          : Rp" << totalBelanja << endl;
         cout << endl;
+        
         double uangDibayar;
         cout << "Masukkan uang tunai    : Rp";
         cin >> uangDibayar;
@@ -310,12 +314,10 @@ int main() {
         system("cls");
         
         // Cetak struk pembelian dengan informasi baru
-        cetakStrukPembelian(pilihanMenu, jumlahBeli, totalHarga, diskon, ppn, uangDibayar);
+        cetakStrukPembelian(pilihanMenu, jumlahBeli, totalHarga, diskon, ppn, uangDibayar, totalBelanja);
 
-        // Lakukan pembayaran
-        lakukanPembayaran(totalHarga - diskon + ppn, uangDibayar);
     } else {
-        cout << "Maaf, stok tidak mencukupi untuk pesanan Anda." << endl;
+        cout << "Maaf, stok tidak mencukupi untuk pesanan Anda" << endl;
     }
 
     return 0; // Keluar dari program
