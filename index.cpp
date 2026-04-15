@@ -282,7 +282,7 @@ int main() {
 
     // Proses pemesanan
     vector<int> pilihanMenu; // pilih menu (nomor)
-    vector<int> jumlahBeli; // atur jumlah menu
+    vector<int> jumlahBeli; // atur jumlah pesan
 
 //    inputMakananYangDibeli(pilihanMenu, jumlahBeli); // Input makanan yang dibeli
 	if (inputMakananYangDibeli(pilihanMenu, jumlahBeli) == 1) {
