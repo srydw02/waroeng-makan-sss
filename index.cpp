@@ -12,23 +12,24 @@ struct Makanan {
 };
 
 // Konstanta untuk jumlah maksimal menu
-const int MAX_MENU_ITEMS = 24; // Total menu makanan dan minuman
+const int MAX_MENU_ITEMS = 25; // Total menu makanan dan minuman
 const int MAX_SEATS = 10;      // Kapasitas tempat makan
 
 Makanan daftarMenu[MAX_MENU_ITEMS] = {
     {"Soto", 5000, 20},
-    {"Timlo Komplit", 8000, 15},
-    {"Nasi Bandeng", 5000, 10},
-    {"Nasi Usus", 7000, 5},
-    {"Nasi Ati Lombok Ijo", 7000, 8},
-    {"Nasi Oseng / Sayur", 5000, 10},
-    {"Nasi Ayam", 11000, 10},
-    {"Mie Rebus / Goreng", 5000, 10},
-    {"Mie Rebus / Goreng + Telur", 8000, 5},
-    {"Gorengan", 1000, 30},
-    {"Air Es", 1000, 50},
-    {"Air Mineral", 3000, 30},
-    {"Teh Panas", 2000, 25},
+    {"Timlo Komplit", 8000, 20},
+    {"Nasi Bandeng", 5000, 20},
+    {"Nasi Usus", 7000, 20},
+    {"Nasi Ati Lombok Ijo", 7000, 20},
+    {"Nasi Oseng", 5000, 20},
+    {"Nasi Sayur", 5000, 20},
+    {"Nasi Ayam", 11000, 20},
+    {"Mie Rebus / Goreng", 5000, 20},
+    {"Mie Rebus / Goreng + Telur", 8000, 20},
+    {"Gorengan", 1000, 40},
+    {"Air Es", 1000, 20},
+    {"Air Mineral", 3000, 20},
+    {"Teh Panas", 2000, 20},
     {"Es Teh", 2500, 20},
     {"Jeruk Es / Panas", 3000, 20},
     {"Nutrisari Es", 3000, 20}, 
@@ -38,7 +39,7 @@ Makanan daftarMenu[MAX_MENU_ITEMS] = {
     {"White Coffee Panas / Es", 3000, 20},
     {"Good Day Panas / Es", 3000, 25}, 
     {"Susu Panas / Es", 3000, 25},
-    {"Pop Ice", 3000, 15},
+    {"Pop Ice", 3000, 20},
     {"Kopi Hitam", 3000, 20}
 };
 
@@ -47,7 +48,7 @@ int jumlahTempatTerisi = 0; // Menghitung jumlah tempat yang terisi
 // Fungsi untuk menampilkan daftar menu makanan
 void tampilkanMenuMakanan() {
     cout << endl;
-    cout << "====================================================" << endl;
+    cout << "=============================================" << endl;
     cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MAKANAN" << setw(10) << "HARGA" << endl;
     cout << string(45, '-') << endl;
 
@@ -59,7 +60,7 @@ void tampilkanMenuMakanan() {
 
 // Fungsi untuk menampilkan daftar menu minuman
 void tampilkanMenuMinuman() {
-    cout << "===================================================" << endl;
+    cout << "=============================================" << endl;
     cout << setw(5) << left << "NO" << setw(30) << "DAFTAR MENU MINUMAN" << setw(10) << "HARGA" << endl;
     cout << string(45, '-') << endl;
 
@@ -76,21 +77,14 @@ void tampilkanSemuaMenu() {
     tampilkanMenuMinuman();
 }
 
-// Fungsi untuk menampilkan jumlah meja yang tersisa
-void tampilkanMejaTersisa() {
-    int sisaMeja = MAX_SEATS - jumlahTempatTerisi;
-    cout << endl;
-    cout << "Jumlah meja yang tersedia  : " << sisaMeja << endl;
-}
-
 // Fungsi untuk menginput makanan yang dibeli
 void inputMakananYangDibeli(vector<int>& pilihanMenu, vector<int>& jumlahBeli) {
     int nomorMenu, jumlahPesan;
     char lanjut;
     do {
-        cout << "Masukkan menu yang dipilih    (nomor menu) : ";
+        cout << "Pilih menu (No. menu)  : ";
         cin >> nomorMenu;
-        cout << "Masukkan jumlah yang ingin dibeli  (angka) : ";
+        cout << "Atur jumlahnya (Angka) : ";
         cin >> jumlahPesan;
         
         pilihanMenu.push_back(nomorMenu);
@@ -138,18 +132,19 @@ double terapkanDiskon(int totalHarga) {
 
 // Fungsi untuk mencetak struk pembelian
 void cetakStrukPembelian(const vector<int>& pilihanMenu, const vector<int>& jumlahBeli, double totalHarga, double diskon, double uangDibayar) {
-    cout << "\n===========================\n";
-    cout << "\tWAROENG SSS";
-    cout << "\n===== Struk Pembelian =====\n";
+    cout << "\n ===========================\n";
+    cout << "      WAROENG MAKAN SSS     " << endl;
+    cout << "  Jl. Singopuran, Kartasura ";
+    cout << "\n ---------------------------\n";
     for (size_t i = 0; i < pilihanMenu.size(); i++) {
-        cout << "Makanan : " << daftarMenu[pilihanMenu[i] - 1].namaMakanan << "\n";
-        cout << "Jumlah  : " << jumlahBeli[i] << "\n";
+        cout << " " << daftarMenu[pilihanMenu[i] - 1].namaMakanan << endl;
+        cout << " " << jumlahBeli[i] << " X " << daftarMenu[i].hargaPerPorsi << "\t   " << jumlahBeli[i]*daftarMenu[i].hargaPerPorsi << endl;
     }
-    cout << "\n===========================\n";
-    cout << "Total Harga : Rp" << totalHarga << endl;
-    cout << "Diskon      : Rp" << diskon << endl;
-    cout << "Total bayar : Rp" << (totalHarga - diskon) << endl; // Menampilkan total setelah diskon
-    cout << "\n===========================\n";
+    cout << "\n ---------------------------\n";
+    cout << " Total Harga   : Rp" << totalHarga << endl;
+    cout << " Total Diskon  : Rp" << diskon << endl;
+    cout << " Total Belanja : Rp" << (totalHarga - diskon) << endl; // Menampilkan total setelah diskon
+    cout << " Uang Tunai    : Rp" << uangDibayar << endl;
 }
 
 // Fungsi untuk memeriksa tempat makan yang kosong
@@ -161,7 +156,7 @@ bool cekTempatMakanTersedia() {
 int pilihMeja() {
     int meja;
     do {
-        cout << "Pilih meja (1 - " << MAX_SEATS << ") : ";
+        cout << "Pilih nomor meja (1 - " << MAX_SEATS << ") : ";
         cin >> meja;
         if (meja < 1 || meja > MAX_SEATS) {
             cout << "Pilihan tidak valid. Silakan coba lagi." << endl;
@@ -178,11 +173,14 @@ void lakukanPembayaran(double totalHarga, double uangDibayar) {
     // Memeriksa apakah uang yang dibayarkan cukup
     if (uangDibayar >= totalHarga) {
         double kembalian = uangDibayar - totalHarga;
-        cout << "Pembayaran berhasil!" << endl;
-        cout << "Kembalian : Rp" << kembalian << endl;
+        cout << " Kembalian     : Rp" << kembalian;
+        cout << "\n ---------------------------\n";
+        cout << " Pembayaran berhasil!" << endl;
+        cout << " Terima kasih atas pembelian Anda" << endl;
     } else {
-        cout << "Uang Anda tidak cukup! Anda masih kekurangan : Rp" 
-             << (totalHarga - uangDibayar) << endl;
+		cout << " Kembalian     : Rp" << (totalHarga - uangDibayar);
+		cout << "\n ---------------------------\n";
+        cout << " Uang Anda tidak cukup!" << endl;
     }
 }
 
@@ -235,8 +233,7 @@ int main() {
     char pilihan;
     
     cout << endl;
-    cout << endl;
-    cout << "Apakah Anda ingin makan di sini? (y/n) : ";
+    cout << " Apakah Anda ingin makan di sini? (y/n) : ";
     cin >> pilihan;
     
 	system("cls");
@@ -254,7 +251,6 @@ int main() {
             int mejaDipilih = pilihMeja(); // Memilih meja
             tampilkanSemuaMenu();
             jumlahTempatTerisi++; // Menandai bahwa satu tempat telah terisi
-            tampilkanMejaTersisa(); // Menampilkan meja yang tersisa
         }
     } else {
         tampilkanSemuaMenu();
@@ -265,8 +261,8 @@ int main() {
     int hargaTertinggi = cariHargaTertinggi(daftarMenu, MAX_MENU_ITEMS);
     
     cout << endl;
-    cout << "Harga terendah dalam menu  : Rp" << hargaTerendah << endl;
-    cout << "Harga tertinggi dalam menu : Rp" << hargaTertinggi << endl;
+    cout << "Harga terendah         : Rp" << hargaTerendah << endl;
+    cout << "Harga tertinggi        : Rp" << hargaTertinggi << endl;
     cout << endl;
 
     // Konfirmasi sebelum melanjutkan
@@ -293,12 +289,12 @@ int main() {
         
         // Tampilkan total harga dan diskon sebelum pembayaran
         cout << endl;
-        cout << "Total Harga           : Rp" << totalHarga << endl;
-        cout << "Diskon                : Rp" << diskon << endl;
-        cout << "Total bayar           : Rp" << (totalHarga - diskon) << endl;
+        cout << "Total Harga            : Rp" << totalHarga << endl;
+        cout << "Total Diskon           : Rp" << diskon << endl;
+        cout << "Total Belanja          : Rp" << (totalHarga - diskon) << endl;
 
         double uangDibayar;
-        cout << "Masukkan nominal uang : Rp";
+        cout << "Masukkan uang tunai    : Rp";
         cin >> uangDibayar;
 
 		system("cls");
