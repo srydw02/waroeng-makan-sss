@@ -13,7 +13,7 @@ using namespace std;
 struct Makanan {
     string namaMakanan;    // Nama makanan
     int hargaPerPorsi;     // Harga per porsi
-    int jumlahStok;        // Jumlah stok yang tersedia
+    int jumlahStok;        // Jumlah stok yang  
 };
 
 // Konstanta untuk jumlah maksimal menu
@@ -51,7 +51,7 @@ int jumlahTempatTerisi = 0; // Menghitung jumlah tempat yang terisi
 
 // Fungsi untuk menampilkan daftar menu makanan
 void tampilkanMenuMakanan() {
-	cout << endl;
+    cout << endl;
     cout << "============ DAFTAR MENU MAKANAN ============" << endl;
     cout << setw(5) << left << "No." << setw(30) << "Menu Makanan" << setw(10) << "Harga" << endl;
     cout << string(45, '-') << endl;
@@ -135,7 +135,7 @@ double terapkanDiskon(int totalHarga, const vector<int>& jumlahBeli) {
 void cetakStrukPembelian(const vector<int>& pilihanMenu, const vector<int>& jumlahBeli, double totalHarga, double diskon, double uangDibayar) {
     cout << "\n===========================\n";
     cout << "\tWAROENG SSS";
-	cout << "\n===== Struk Pembelian =====\n";
+    cout << "\n===== Struk Pembelian =====\n";
     for (size_t i = 0; i < pilihanMenu.size(); i++) {
         cout << "Makanan: " << daftarMenu[pilihanMenu[i] - 1].namaMakanan << "\n";
         cout << "Jumlah: " << jumlahBeli[i] << "\n";
@@ -143,10 +143,7 @@ void cetakStrukPembelian(const vector<int>& pilihanMenu, const vector<int>& juml
     cout << "\n===========================\n";
     cout << "Total Harga: Rp " << totalHarga << endl;
     cout << "Diskon: Rp " << diskon << endl;
-    cout << "Tunai: Rp " << uangDibayar << endl;
-
-    double kembalian = uangDibayar - (totalHarga - diskon);
-    cout << "Kembalian: Rp " << kembalian << endl;
+    cout << "Total yang harus dibayar setelah diskon: Rp " << (totalHarga - diskon) << endl; // Menampilkan total setelah diskon
     cout << "\n===========================\n";
 }
 
@@ -167,9 +164,7 @@ void lakukanPembayaran(double totalHarga, double uangDibayar) {
     if (uangDibayar >= totalHarga) {
         double kembalian = uangDibayar - totalHarga;
         cout << "Pembayaran berhasil!" << endl;
-//        if (kembalian > 0) {
-//            cout << "Kembalian Anda: Rp " << kembalian << endl;
-//        }
+        cout << "Kembalian: Rp " << kembalian << endl;
     } else {
         cout << "Uang yang dibayarkan tidak cukup. Anda masih kekurangan: Rp " 
              << (totalHarga - uangDibayar) << endl;
@@ -179,11 +174,12 @@ void lakukanPembayaran(double totalHarga, double uangDibayar) {
 int main() {
     // Menampilkan judul dengan warna hijau
     cout << GREEN << "=============================================================\n" << RESET;
-    cout << GREEN << "    __ __            __  _          _______________\n" << RESET;
-    cout << GREEN << "   / //_/___ _____  / /_(_)___     / ___/ ___/ ___/\n" << RESET;
-    cout << GREEN << "  / ,< / __ `/ __ \\/ __/ / __ \\    \\__ \\\\__ \\\\__ \\\n" << RESET;
-    cout << GREEN << " / /| / /_/ / / / / /_/ / / / /   ___/ /__/ /__/ /\n" << RESET;
-    cout << GREEN << "/_/ |\\__,_/_/ /_/\\__/_/_/ /_/   /____/____/____/  \n" << RESET;
+    cout << GREEN << " _       __                                     _______________\n" << RESET;
+    cout << GREEN << "| |     / /___ __________  ___  ____  ____ _   / ___/ ___/ ___/\n" << RESET;
+    cout << GREEN << "| | /| / / __ `/ ___/ __ \\/ _ \\/ __ \\/ __ `/   \\__ \\\\__ \\\\__ \\\n" << RESET;
+    cout << GREEN << "| |/ |/ / /_/ / /  / /_/ /  __/ / / / /_/ /   ___/ /__/ /__/ /\n" << RESET;
+    cout << GREEN << "|__/|__/\\__,_/_/   \\____/\\___/_/ /_/\\__, /   /____/____/____/  \n" << RESET;
+    cout << GREEN << "                                   /____/                       \n" << RESET;
     cout << GREEN << "=============================================================\n\n" << RESET;
 
     char pilihan;
@@ -217,7 +213,15 @@ int main() {
         tampilkanSemuaMenu();
     }
 
-   // Proses pemesanan
+    // Konfirmasi sebelum melanjutkan
+    cout << "Apakah Anda yakin ingin beli disini? (y/n): ";
+    cin >> pilihan;
+    if (pilihan != 'y' && pilihan != 'Y') {
+        cout << "Pembelian dibatalkan." << endl;
+        return 0; // Keluar dari program
+    }
+
+    // Proses pemesanan
     vector<int> pilihanMenu;
     vector<int> jumlahBeli;
 
@@ -237,6 +241,11 @@ int main() {
             diskon = totalHarga - totalDenganDiskon;
         }
 
+        // Tampilkan total harga dan diskon sebelum pembayaran
+        cout << "\nTotal Harga: Rp " << totalHarga << endl;
+        cout << "Diskon: Rp " << diskon << endl;
+        cout << "Total yang harus dibayar setelah diskon: Rp " << (totalHarga - diskon) << endl;
+
         double uangDibayar;
         cout << "Masukkan jumlah uang yang dibayarkan: Rp ";
         cin >> uangDibayar;
@@ -245,10 +254,10 @@ int main() {
         cetakStrukPembelian(pilihanMenu, jumlahBeli, totalHarga, diskon, uangDibayar);
 
         // Lakukan pembayaran
-        lakukanPembayaran(totalDenganDiskon, uangDibayar); // Pass uangDibayar ke fungsi ini
+        lakukanPembayaran(totalHarga - diskon, uangDibayar); // Pass total setelah diskon ke fungsi ini
     } else {
-        cout << "Stok tidak mencukupi untuk pesanan." << endl;
+        cout << "Stok tidak mencukupi untuk pesanan Anda." << endl;
     }
 
-    return 0;
+    return 0; // Mengakhiri program
 }
