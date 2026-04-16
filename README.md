@@ -1,5 +1,9 @@
 # 🍽️ Waroeng Makan SSS - CLI Cashier System
 
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
+![CLI](https://img.shields.io/badge/CLI-Terminal-black?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
+
 **Waroeng Makan SSS** adalah program simulasi kasir dan *Point of Sale* (POS) berbasis *Command Line Interface* (CLI) yang ditulis menggunakan C++. Program interaktif ini mensimulasikan operasional restoran secara *real-time* dengan fitur manajemen pesanan *multi-item*, validasi stok, perhitungan PPN 11%, dan diskon bertingkat secara otomatis.
 
 ---
