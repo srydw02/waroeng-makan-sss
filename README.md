@@ -1,9 +1,5 @@
 # 🍽️ Waroeng Makan SSS - CLI Cashier System
 
-![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![CLI](https://img.shields.io/badge/CLI-Terminal-black?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
-
 **Waroeng Makan SSS** adalah program simulasi kasir dan *Point of Sale* (POS) berbasis *Command Line Interface* (CLI) yang ditulis menggunakan C++. Program interaktif ini mensimulasikan operasional restoran secara *real-time* dengan fitur manajemen pesanan *multi-item*, validasi stok, perhitungan PPN 11%, dan diskon bertingkat secara otomatis.
 
 ---
@@ -17,9 +13,9 @@ Program ini dilengkapi dengan berbagai fitur komprehensif untuk menyimulasikan s
 * **🛒 Multi-Item Dynamic Ordering:** Pengguna dapat memesan lebih dari satu jenis menu dalam satu transaksi secara dinamis berkat penggunaan `std::vector`.
 * **📦 Real-time Stock Validation:** Sistem mengecek ketersediaan stok sebelum memproses pembayaran. Stok akan otomatis berkurang jika pesanan berhasil.
 * **🏷️ Smart Discount System:** Potongan harga otomatis berdasarkan total belanja:
-    * Belanja > Rp 50.000 ➔ Diskon Rp 7.000
-    * Belanja > Rp 30.000 ➔ Diskon Rp 5.000
-    * Belanja > Rp 10.000 ➔ Diskon Rp 2.000
+    * Belanja > Rp50.000 ➔ Diskon Rp7.000
+    * Belanja > Rp30.000 ➔ Diskon Rp5.000
+    * Belanja > Rp10.000 ➔ Diskon Rp2.000
 * **🧾 Auto-Generated Receipt:** Mencetak struk belanja yang rapi menggunakan manipulasi *string* (`<iomanip>`), menampilkan rincian pesanan, harga total, diskon, PPN 11%, uang tunai, dan kembalian.
 
 ---
@@ -71,5 +67,5 @@ Untuk menjalankan program ini di komputer Anda, pastikan *compiler* C++ (seperti
 ---
 
 <p align="center">
-  <i>Dibuat oleh srydw02 menggunakan C++ | Proyek Simulasi Kasir</i>
+  <i>Dibuat oleh Kelompok SSS menggunakan C++ | Proyek Simulasi Kasir</i>
 </p>
